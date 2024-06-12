@@ -56,9 +56,11 @@
         });
         // Add click event listener to each result item
         resultItem.addEventListener('click', function () {
+          const title = result.doc;
           fetch('/document', {
-            method: 'GET', // Change to GET method
-            params: { title: result.doc } // Send document title as query parameter
+            method: 'POST',
+            body: JSON.stringify({ title }),
+            headers: { 'Content-Type': 'application/json' }
           })
             .then(response => response.json())
             .then(data => window.open(data.url))

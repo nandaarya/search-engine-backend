@@ -24,14 +24,15 @@ def call_perform_search_function():
     # Return search results as JSON
     return jsonify(results)
 
-@app.route('/document', methods=['GET'])
+@app.route('/document', methods=['POST'])
 def get_document():
-    # Get title from query parameters
-    title = request.args.get('title')
-    print(title)
+    # Get data from request body
+    data = request.get_json()
+    title = data.get('title')
 
     # Get document URL from database
     url = get_document_file_url_from_database(title)
+    print(url)
 
     # Return document URL as JSON
     return jsonify({"url": url})
