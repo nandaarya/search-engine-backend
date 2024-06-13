@@ -37,5 +37,9 @@ def get_document():
     # Return document URL as JSON
     return jsonify({"url": url})
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=8000)

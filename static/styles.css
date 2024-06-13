@@ -107,3 +107,16 @@ button:active {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 }
+
+.about-link {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #000000;
+  font-family: Arial, sans-serif;
+}
+
+.about-link:hover {
+  color: #0056b3;
+}
