@@ -4,9 +4,9 @@ from pymongo import MongoClient
 
 load_dotenv()
 
-client = MongoClient(os.environ.get('MONGO_DB'))
-db = client[os.environ.get('MONGO_DB_DATABASE')]
-collection = db[os.environ.get('MONGO_DB_COLLECTION')]
+client = MongoClient(os.environ.get('MONGODB_URI'))
+db = client[os.environ.get('MONGODB_DATABASE')]
+collection = db[os.environ.get('MONGODB_COLLECTION')]
 
 def fetch_all_documents_from_database():
     all_documents = collection.find()
