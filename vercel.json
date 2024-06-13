@@ -22,5 +22,5 @@
         "destination": "/public/:*"
       }
     ],
-    "public": ["templates", "static"]
+    "public": true
   }
