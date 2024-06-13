@@ -10,8 +10,8 @@
     <h1>Tahu Search</h1>
     <h2>Search Your Favorite Literature</h2>
     <h2>With Various Algorithms</h2>
-    <form id="searchForm">
-      <input type="text" id="keyword" name="keyword" placeholder="Enter Keyword" style="width: 28px">
+    <form id="searchForm" style="margin-top: 16px;">
+      <input type="text" id="keyword" name="keyword" placeholder="Enter Keyword" style="width: 280px">
       <select id="algorithm" style="width: 280px">
         <option value="vector-space">Vector Space Model</option>
         <option value="cosine-similarity">Cosine Similarity</option>
@@ -19,11 +19,13 @@
         <option value="extended-boolean">Extended Boolean</option>
         <option value="knn">K-Nearest Neighbors (KNN)</option>
       </select>
-      <button type="submit">Search</button>
+      <button type="submit" style="width: 280px">Search</button>
     </form>
     <div id="results"></div>
 
-    <a href="/about" class="about-link" target="_blank">About This Web</a>
+    <a href="/about" class="about-link" target="_blank">
+      <h2>About This Web</h2>
+    </a>
 
     <script>
       document.getElementById('searchForm').addEventListener('submit', function(event) {
