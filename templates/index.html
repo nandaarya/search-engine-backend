@@ -1,77 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tahu Search</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-  </head>
-  <body>
-    <h1>Tahu Search</h1>
-    <h2 style="text-align: center; margin: 16px;">Search Your Favorite Literature With Various Algorithms</h2>
-    <form id="searchForm" style="margin-top: 16px;">
-      <input type="text" id="keyword" name="keyword" placeholder="Enter Keyword" style="width: 280px">
-      <select id="algorithm" style="width: 280px">
-        <option value="vector-space">Vector Space Model</option>
-        <option value="cosine-similarity">Cosine Similarity</option>
-        <option value="naive-bayes">Naive Bayes</option>
-        <option value="extended-boolean">Extended Boolean</option>
-        <option value="knn">K-Nearest Neighbors (KNN)</option>
-      </select>
-      <button type="submit" style="width: 280px">Search</button>
-    </form>
-    <div id="results"></div>
 
-    <a href="/about" class="about-link" target="_blank">
-      <h2>About This Web</h2>
-    </a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tahu Search</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 
-    <script>
-      document.getElementById('searchForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const keyword = document.getElementById('keyword').value.toLowerCase();
-        const algorithm = document.getElementById('algorithm').value;
-        // Send AJAX request to perform search using Python function
-        fetch('/perform_search', {
-          method: 'POST',
-          body: JSON.stringify({ keyword, algorithm }),
-          headers: { 'Content-Type': 'application/json' }
-        })
+<body>
+  <h1>Tahu Search</h1>
+  <h2 style="text-align: center; margin: 16px;">Search Your Favorite Literature With Various Algorithms</h2>
+  <form id="searchForm" style="margin-top: 16px;">
+    <input type="text" id="keyword" name="keyword" placeholder="Enter Keyword" style="width: 280px">
+    <select id="algorithm" style="width: 280px">
+      <option value="vector-space">Vector Space Model</option>
+      <option value="cosine-similarity">Cosine Similarity</option>
+      <option value="naive-bayes">Naive Bayes</option>
+      <option value="extended-boolean">Extended Boolean</option>
+      <option value="knn">K-Nearest Neighbors (KNN)</option>
+    </select>
+    <button type="submit" style="width: 280px">Search</button>
+  </form>
+  <div id="results"></div>
+
+  <h2>
+    <a href="/about" class="about-link" target="_blank">About This Web</a>
+  </h2>
+
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const keyword = document.getElementById('keyword').value.toLowerCase();
+      const algorithm = document.getElementById('algorithm').value;
+      // Send AJAX request to perform search using Python function
+      fetch('/perform_search', {
+        method: 'POST',
+        body: JSON.stringify({ keyword, algorithm }),
+        headers: { 'Content-Type': 'application/json' }
+      })
         .then(response => response.json())
         .then(data => displayResults(data))
         .catch(error => console.error(error));
-      });
+    });
 
-      function displayResults(results) {
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '';
+    function displayResults(results) {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
 
-        if (results.length === 0) {
-          resultsDiv.innerHTML = '<p>No results found</p>';
-          return;
-        }
+      if (results.length === 0) {
+        resultsDiv.innerHTML = '<p>No results found</p>';
+        return;
+      }
 
-        results.forEach((result) => {
-          const resultItem = document.createElement('div');
-          resultItem.addEventListener('mouseover', () => {
-            resultItem.style.cursor = 'pointer';
-          });
-          // Add click event listener to each result item
-          resultItem.addEventListener('click', function() {
-            const title = result.doc;
-            fetch('/document', {
-              method: 'POST',
-              body: JSON.stringify({ title }),
-              headers: { 'Content-Type': 'application/json' }
-            })
+      results.forEach((result) => {
+        const resultItem = document.createElement('div');
+        resultItem.addEventListener('mouseover', () => {
+          resultItem.style.cursor = 'pointer';
+        });
+        // Add click event listener to each result item
+        resultItem.addEventListener('click', function () {
+          const title = result.doc;
+          fetch('/document', {
+            method: 'POST',
+            body: JSON.stringify({ title }),
+            headers: { 'Content-Type': 'application/json' }
+          })
             .then(response => response.json())
             .then(data => window.open(data.url))
             .catch(error => console.error(error));
-          });
-          resultItem.innerHTML = `<p>${result.doc} (Score: ${result.score})</p>`;
-          resultsDiv.appendChild(resultItem);
         });
-      }
-    </script>
-  </body>
+        resultItem.innerHTML = `<p>${result.doc} (Score: ${result.score})</p>`;
+        resultsDiv.appendChild(resultItem);
+      });
+    }
+  </script>
+</body>
+
 </html>
