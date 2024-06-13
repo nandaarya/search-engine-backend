@@ -122,23 +122,6 @@ button:active {
 }
 
 /* About content styles */
-.about-content {
+.centered {
   text-align: center;
-}
-
-.about-content h3 {
-  font-size: 1.8em;
-  font-weight: bold;
-  color: #333;
-}
-
-/* Team members list styles */
-.team-members {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.team-members li {
-  margin-bottom: 10px;
 }
