@@ -120,3 +120,25 @@ button:active {
 .about-link:hover {
   color: #0056b3;
 }
+
+/* About content styles */
+.about-content {
+  text-align: center;
+}
+
+.about-content h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Team members list styles */
+.team-members {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-members li {
+  margin-bottom: 10px;
+}
